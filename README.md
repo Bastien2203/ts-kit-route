@@ -1,6 +1,7 @@
 # ts-route-kit
 
-**ts-route-kit** is a lightweight framework based on Fastify for creating HTTP routes using decorators. It simplifies the definition of routes with TypeScript.
+[**ts-route-kit**](https://www.npmjs.com/package/ts-route-kit) is a lightweight framework based on Fastify for creating HTTP routes using decorators. It simplifies the definition of routes with TypeScript.
+
 
 ## Installation
 
