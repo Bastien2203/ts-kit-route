@@ -7,23 +7,33 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Bastien2203/ts-kit-route"
   },
-  "keywords": ["decorators", "routes", "framework", "typescript", "fastify"],
+  "keywords": [
+    "decorators",
+    "routes",
+    "framework",
+    "typescript",
+    "fastify"
+  ],
   "author": "Bastien2203",
   "license": "MIT",
   "dependencies": {
     "fastify": "^5.1.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.9.0",
+    "jest": "^29.7.0",
+    "reflect-metadata": "^0.2.2",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.6.3"
   },
-  "engines": {                          
+  "engines": {
     "node": ">=21.1.0"
   },
   "files": [
