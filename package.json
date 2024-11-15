@@ -1,0 +1,33 @@
+{
+  "name": "ts-route-kit",
+  "version": "1.0.0",
+  "description": "A lightweight framework for creating HTTP routes using decorators. It is based on Fastify.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bastien2203/ts-kit-route"
+  },
+  "keywords": ["decorators", "routes", "framework", "typescript", "fastify"],
+  "author": "Bastien2203",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {                          
+    "node": ">=21.1.0"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ]
+}
