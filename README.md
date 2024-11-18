@@ -44,6 +44,11 @@ class HelloController extends AbstractController {
     helloHandler(req: any, res: any) {
         res.send({ message: 'Hello, world!' });
     }
+
+    @Get('/hello/:name')
+    helloHandler(req: any, res: any, name: string) {
+        res.send({ message: `Hello ${name}` });
+    }
 }
 ```
 
