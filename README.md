@@ -37,7 +37,7 @@ Add a `tsconfig.json` file to your project for TypeScript compilation:
 ### Create a Controller
 
 ```typescript
-import { AbstractController, Get, Server } from "ts-route-kit";
+import { AbstractController, Get, Server, HttpRequest, HttpResponse, HttpResponse, HttpMessage } from "ts-route-kit";
 
 class HelloController extends AbstractController {
     @Get('/hello')
@@ -57,6 +57,19 @@ class HelloController extends AbstractController {
             headers: {},
             body: { message: `Hello ${name}` }
         }
+    }
+
+    @Post('/hello')
+    helloPostHandler(req: HttpRequest): HttpResponse {
+      const { name } = req.body
+      if(!name) {
+          return HttpMessage.BAD_REQUEST;
+      }
+      return {
+          status: 200,
+          headers: {},
+          body: { message: `Hello ${name}` }
+      }
     }
 }
 ```
