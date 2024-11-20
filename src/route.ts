@@ -1,10 +1,13 @@
+import { HttpRequest, HttpResponse } from "./http_messages";
+
 export interface Route {
     method: string;
     url: string;
-    handler: Function;
+    handler: RouteHandler;
     paramNames: string[];
 }
 
+export type RouteHandler = (req: HttpRequest) => HttpResponse;
 
 export type DynamicNode = { [key: string]: Route | DynamicNode | string };
 

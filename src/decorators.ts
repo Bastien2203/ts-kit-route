@@ -9,20 +9,12 @@ function createRouteDecorator(method: string) {
                 method,
                 url,
                 handler: descriptor.value,
-                paramNames: extractParamNames(descriptor.value)
             });
         };
     };
 }
 
-function extractParamNames(func: Function) {
-    const functionString = func.toString();
-    const paramMatch = functionString.match(/\(([^)]*)\)/);
-    if (!paramMatch) return [];
-    return paramMatch[1]
-        .split(',')
-        .map((param) => param.trim().replace(/\/\*.*\*\//, '').replace(/\?.*/, ''));
-}
+
 
 export const Get = createRouteDecorator('GET');
 export const Post = createRouteDecorator('POST');

@@ -1,75 +1,139 @@
-import { AbstractController, Get, Server } from '../src';
+import { AbstractController, Get, HttpRequest, HttpResponse, Post, Server } from '../src';
+import { HttpMessage } from '../src/http_messages';
+import { RouteManager } from '../src/route_manager';
+
 
 class TestController extends AbstractController {
 
     // @ts-ignore
     @Get('/hello')
-    test(req: any, res: any) {
-        res.end("Hello World !");
+    test(req: HttpRequest): HttpResponse {
+        return {
+            status: 200,
+            headers: {},
+            body: 'Hello World !'
+        }
     }
 
     // @ts-ignore
     @Get('/hello/test')
-    tes2(req: any, res: any) {
-        res.end("Hello Test !");
+    tes2(req: HttpRequest): HttpResponse {
+        return {
+            status: 200,
+            headers: {},
+            body: 'Hello Test !'
+        }
     }
 
     // @ts-ignore
     @Get('/hello/:name')
-    test1Params(req: any, res: any, name: string) {
-        res.end(`Hello ${name} !`);
+    test1Params(req: HttpRequest): HttpResponse {
+        const { name } = req.params;
+        return {
+            status: 200,
+            headers: {},
+            body: `Hello ${name} !`
+        }
     }
 
     // @ts-ignore
     @Get('/hello/:name/:age')
-    test2Params(name: string, res: any, age: number, req: any) {
-        res.end(`Hello ${name} ${age} !`);
+    test2Params(req: HttpRequest): HttpResponse {
+        const { name, age } = req.params;
+        return {
+            status: 200,
+            headers: {},
+            body: `Hello ${name} ${age} !`
+        }
     }
+
+    // @ts-ignore
+    @Post('/hello')
+    testPost(req: HttpRequest): HttpResponse {
+        if(!req.body) {
+            return HttpMessage.BAD_REQUEST;
+        }
+
+        const { name } = JSON.parse(req.body.toString());
+        return {
+            status: 200,
+            headers: {},
+            body: `Hello ${name} !`
+        }
+    }
+
 }
 
-test('simple route', async () => {
-    const server = new Server(3000);
-    new TestController(server);
-    server.start();
+describe('Get Routes', () => {
+    test('simple route', async () => {
+        const routeManager = new RouteManager();
+        const server = new Server(3000, routeManager);
+        new TestController(server);
+        server.start();
 
-    const res = await fetch('http://localhost:3000/hello');
-    const text = await res.text();
-    expect(text).toBe('Hello World !');
+        const res = await fetch('http://localhost:3000/hello');
+        const text = await res.text();
+        expect(text).toBe('Hello World !');
 
-    server.stop();
+        server.stop();
+    });
+
+    test('simple route 2', async () => {
+        const routeManager = new RouteManager();
+        const server = new Server(3000, routeManager);
+        new TestController(server);
+        server.start();
+
+        const res2 = await fetch('http://localhost:3000/hello/test');
+        const text2 = await res2.text();
+        expect(text2).toBe('Hello Test !');
+
+        server.stop();
+    });
+
+
+    test('route with 1 params', async () => {
+        const routeManager = new RouteManager();
+        const server = new Server(3000, routeManager);
+        new TestController(server);
+        server.start();
+
+        const res = await fetch('http://localhost:3000/hello/John');
+        const text = await res.text();
+        expect(text).toBe('Hello John !');
+        server.stop();
+    });
+
+    test('route with 2 params', async () => {
+        const routeManager = new RouteManager();
+        const server = new Server(3000,routeManager);
+        new TestController(server);
+        server.start();
+
+        const res = await fetch('http://localhost:3000/hello/John/30');
+        const text = await res.text();
+        expect(text).toBe('Hello John 30 !');
+        server.stop();
+    });
 });
 
-test('simple route 2', async () => {
-    const server = new Server(3000);
-    new TestController(server);
-    server.start();
+describe('Post Routes', () => {
+    test('simple route', async () => {
+        const routeManager = new RouteManager();
+        const server = new Server(3000, routeManager);
+        new TestController(server);
+        server.start();
 
-    const res2 = await fetch('http://localhost:3000/hello/test');
-    const text2 = await res2.text();
-    expect(text2).toBe('Hello Test !');
+        const res = await fetch('http://localhost:3000/hello', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: 'John' })
+        });
+        const text = await res.text();
+        expect(text).toBe('Hello John !');
 
-    server.stop();
-});
-
-
-test('route with 1 params', async () => {
-    const server = new Server(3000);
-    new TestController(server);
-    server.start();
-
-    const res = await fetch('http://localhost:3000/hello/John');
-    const text = await res.text();
-    expect(text).toBe('Hello John !');
-    server.stop();
-});
-
-test('route with 2 params', async () => {
-    const server = new Server(3000);
-    new TestController(server);
-    server.start();
-
-    const res = await fetch('http://localhost:3000/hello/John/30');
-    const text = await res.text();
-    expect(text).toBe('Hello John 30 !');
-    server.stop();
+        server.stop();
+    });
 });

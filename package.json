@@ -17,14 +17,11 @@
     "decorators",
     "routes",
     "framework",
-    "typescript",
-    "fastify"
+    "typescript"
   ],
   "author": "Bastien2203",
   "license": "MIT",
-  "dependencies": {
-    "fastify": "^5.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.9.0",

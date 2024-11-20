@@ -3,14 +3,10 @@ import { Route } from "./route";
 
 
 export abstract class AbstractController {
-    server: Server;
     routes: Route[] = [];
-
-    constructor(server: Server) {
-        this.server = server;
-
+    constructor(private server: Server) {
         const prototypeRoutes = Object.getPrototypeOf(this)._prototypeRoutes || [];
         this.routes = [...prototypeRoutes];
-        this.server.addRoutes(this.routes);
+        this.server.routeManager.addRoutes(this.routes);
     }
 }
