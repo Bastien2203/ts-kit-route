@@ -2,7 +2,7 @@ import { AbstractController, HttpRequest, HttpResponse, Post, Server } from '../
 import { HttpMessage } from '../src/http_messages';
 
 
-class TestController2 extends AbstractController {
+class TestController extends AbstractController {
     // @ts-ignore
     @Post('/hello')
     testPostJson(req: HttpRequest): HttpResponse {
@@ -49,7 +49,7 @@ class TestController2 extends AbstractController {
 
 describe('Post Routes', () => {
     const server = new Server(3000);
-    new TestController2(server);
+    new TestController(server);
 
     beforeAll(() => {
         server.start();
