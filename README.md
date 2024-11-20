@@ -41,13 +41,22 @@ import { AbstractController, Get, Server } from "ts-route-kit";
 
 class HelloController extends AbstractController {
     @Get('/hello')
-    helloHandler(req: any, res: any) {
-        res.send({ message: 'Hello, world!' });
+    helloHandler(req: HttpRequest): HttpResponse {
+        return {
+            status: 200,
+            headers: {},
+            body: req.method
+        }
     }
 
     @Get('/hello/:name')
-    helloHandler(req: any, res: any, name: string) {
-        res.send({ message: `Hello ${name}` });
+    helloHandlerWithParams(req: HttpRequest): HttpResponse {
+      const { name } = req.params
+      return {
+            status: 200,
+            headers: {},
+            body: { message: `Hello ${name}` }
+        }
     }
 }
 ```
