@@ -2,8 +2,9 @@ export interface HttpRequest{
     method: string;
     url: string;
     headers: { [key: string]: string };
-    body?: Buffer;
+    body?: any;
     params: { [key: string]: string };
+    queryParams: { [key: string]: string };
 }
 
 export interface HttpResponse{

@@ -1,6 +1,3 @@
-import {  HttpRequest } from './http_messages';
-import { HttpUtils } from './http_utils';
-import {  RouteHandler } from './route';
 import http from 'http';
 import { RouteManager } from './route_manager';
 import { RequestHandler } from './request_handler';
@@ -10,14 +7,17 @@ import { RequestHandler } from './request_handler';
 export class Server {
     server: http.Server;
     requestHandler: RequestHandler;
+    public routeManager: RouteManager;
 
-    constructor(private port: number, public routeManager: RouteManager) {
+    constructor(private port: number) {
         this.server = http.createServer();
-        this.requestHandler = new RequestHandler(routeManager);
+        this.routeManager = new RouteManager();
+        this.requestHandler = new RequestHandler(this.routeManager);
     }
 
     async start() {
         try {
+            console.dir(this.routeManager.routesMap, { depth: null });
             this.server.addListener('request', (req, res) => this.requestHandler.handleRequest(req, res));
 
             this.server.listen({

@@ -40,8 +40,6 @@ export class RouteManager {
             const routeKey = routeSegments.join('/');
             methodRoutes.static[`/${routeKey}`] = route;
         }
-
-        console.log(`Added route: ${route.url} (${isDynamic ? 'dynamic' : 'static'})`);
     }
 
     addRoutes(routes: Route[]) {
