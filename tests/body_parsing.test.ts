@@ -1,4 +1,4 @@
-import { AbstractController, HttpRequest, HttpResponse, Post, Server } from '../src';
+import { AbstractController, Get, HttpRequest, HttpResponse, Post, Server } from '../src';
 import { HttpMessage } from '../src/http_messages';
 
 
@@ -41,6 +41,18 @@ class TestController extends AbstractController {
             status: 200,
             headers: {},
             body: `Hello ${name} !`
+        }
+    }
+
+    // @ts-ignore
+    @Get("/sendJSONBody")
+    sendJSONBody(req: HttpRequest): HttpResponse {
+        return {
+            status: 200,
+            headers: {},
+            body: {
+                message: "Hello World"
+            }
         }
     }
 
@@ -93,5 +105,13 @@ describe('Post Routes', () => {
         });
         const text = await res.text();
         expect(text).toBe('Hello John !');
+    });
+
+    test('sendJSONBody', async () => {
+        const res = await fetch('http://localhost:3000/sendJSONBody', {
+            method: 'GET'
+        });
+        const json = await res.json();
+        expect(json).toEqual({ message: "Hello World" });
     });
 });

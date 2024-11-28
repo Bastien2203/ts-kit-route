@@ -59,8 +59,13 @@ export class RequestHandler {
         };
 
         const httpResponse = route.handler(httpRequest);
-        res.writeHead(httpResponse.status, httpResponse.headers);
-        res.end(httpResponse.body);
+        if (typeof httpResponse.body === "object") {
+            res.writeHead(httpResponse.status, {...httpResponse.headers, "Content-Type": "application/json"});
+            res.end(JSON.stringify(httpResponse.body));
+        } else {
+            res.writeHead(httpResponse.status, httpResponse.headers);
+            res.end(httpResponse.body);
+        }
     }
 }
 
