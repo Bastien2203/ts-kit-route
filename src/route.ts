@@ -7,7 +7,7 @@ export interface Route {
     paramNames: string[];
 }
 
-export type RouteHandler = (req: HttpRequest) => HttpResponse;
+export type RouteHandler = (req: HttpRequest) => Promise<HttpResponse> | HttpResponse;
 
 export type DynamicNode = { [key: string]: Route | DynamicNode | string };
 

@@ -1,6 +1,6 @@
 {
   "name": "ts-route-kit",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A lightweight framework for creating HTTP routes using decorators. It is based on Fastify.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",

@@ -58,7 +58,7 @@ export class RequestHandler {
             queryParams: queryParams || {},
         };
 
-        const httpResponse = route.handler(httpRequest);
+        const httpResponse = await route.handler(httpRequest);
         if (typeof httpResponse.body === "object") {
             res.writeHead(httpResponse.status, {...httpResponse.headers, "Content-Type": "application/json"});
             res.end(JSON.stringify(httpResponse.body));

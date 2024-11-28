@@ -56,6 +56,22 @@ class TestController extends AbstractController {
         }
     }
 
+    // @ts-ignore
+    @Get("/sendAsynchronousJSONBody")
+    sendAsynchronousJSONBody(req: HttpRequest): Promise<HttpResponse> {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    status: 200,
+                    headers: {},
+                    body: {
+                        message: "Hello World"
+                    }
+                });
+            }, 1000);
+        });
+    }
+
 }
 
 
@@ -109,6 +125,14 @@ describe('Post Routes', () => {
 
     test('sendJSONBody', async () => {
         const res = await fetch('http://localhost:3000/sendJSONBody', {
+            method: 'GET'
+        });
+        const json = await res.json();
+        expect(json).toEqual({ message: "Hello World" });
+    });
+
+    test('sendAsynchronousJSONBody', async () => {
+        const res = await fetch('http://localhost:3000/sendAsynchronousJSONBody', {
             method: 'GET'
         });
         const json = await res.json();
