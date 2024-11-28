@@ -39,7 +39,7 @@ Add a `tsconfig.json` file to your project for TypeScript compilation:
 ```typescript
 import { AbstractController, Get, Server, HttpRequest, HttpResponse, HttpResponse, HttpMessage } from "ts-route-kit";
 
-class HelloController extends AbstractController {
+export class HelloController extends AbstractController {
     @Get('/hello')
     helloHandler(req: HttpRequest): HttpResponse {
         return {
@@ -79,7 +79,7 @@ class HelloController extends AbstractController {
 ```typescript
 import { HelloController, Server } from "./HelloController";
 
-const server = Server(8080);
+const server = new Server(8080);
 
 // Instantiate your controller
 new HelloController(server);

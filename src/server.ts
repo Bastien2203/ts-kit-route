@@ -1,4 +1,4 @@
-import http from 'http';
+import * as http from 'http'
 import { RouteManager } from './route_manager';
 import { RequestHandler } from './request_handler';
 

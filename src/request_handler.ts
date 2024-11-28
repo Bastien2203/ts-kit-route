@@ -1,5 +1,5 @@
 import { RouteManager } from "./route_manager";
-import http from 'http';
+import * as http from 'http'
 import { HttpRequest } from "./http_messages";
 import { HttpBodyParser } from "./http_body_parser";
 
